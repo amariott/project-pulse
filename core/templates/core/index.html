@@ -1,0 +1,43 @@
+{% extends 'core/base.html' %}
+
+{% block title %}welcome{% endblock %}
+
+{% block content %}
+    <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
+        <h2 class="mb-12 text-2xl text-center">catalog</h2>
+
+        <div class="grid grid-cols-3 gap-3">
+            {% for item in items %}
+                <div class="bg-white rounded-xl overflow-hidden shadow-md">
+                    <a href="{% url 'item:detail' item.id %}">
+                        <div class="h-48 overflow-hidden">
+                            <img src="{{ item.image.url }}" class="w-full h-full object-cover">
+                        </div>
+
+                        <div class="p-6">
+                            <h2 class="text-xl font-semibold">{{ item.name }}</h2>
+                            <p class="text-gray-500">price: {{ item.price }} $</p>
+
+                            {% if item.average_rating %}
+                                <div class="flex mt-2">
+                                    {% for i in "12345" %}
+                                        <span class="text-{% if i|add:'0' <= item.average_rating %}yellow-500{% else %}gray-300{% endif %}">★</span>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </a>
+
+                    <div class="px-6 pb-4">
+                        {% if item.in_cart %}
+                            <button class="w-full py-2 px-4 bg-gray-500 text-white rounded cursor-default">in cart</button>
+                        {% else %}
+                            <a href="{% url 'item:add_to_cart' item.id %}"
+                               class="block w-full text-center py-2 px-4 bg-teal-500 text-white rounded hover:bg-teal-700">add to cart</a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends 'core/base.html' %}
+
+{% block title %}browse{% endblock %}
+
+{% block content %}
+<div class="pb-6 grid grid-cols-1 md:grid-cols-4 gap-4 bg-gray-100 p-6 rounded-xl">
+    <div class="col-span-1">
+        <form method="get" action="{% url 'item:browse' %}">
+            <input name="query" class="w-full py-4 px-6 border rounded-xl mb-4"
+                   value="{{ query }}" placeholder="Find your item...">
+
+            <h3 class="text-lg font-semibold mb-2">filters</h3>
+
+            <div class="mb-4">
+                <label class="block mb-2">price range</label>
+                <div class="grid grid-cols-2 gap-2">
+                    <input type="number" name="min_price" placeholder="min"
+                           class="py-2 px-4 border rounded" value="{{ min_price }}">
+                    <input type="number" name="max_price" placeholder="max"
+                           class="py-2 px-4 border rounded" value="{{ max_price }}">
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <label class="block mb-2">category</label>
+                <select name="category" class="w-full py-2 px-4 border rounded">
+                    <option value="">all categories</option>
+                    {% for category in categories %}
+                        <option value="{{ category.id }}" {% if category_id == category.id %}selected{% endif %}>
+                            {{ category.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <button class="mt-2 w-full py-4 px-8 text-lg bg-teal-500 text-white rounded-xl">apply filters</button>
+        </form>
+    </div>
+
+    <div class="col-span-3">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% for item in items %}
+                <div class="bg-white rounded-xl overflow-hidden shadow-md">
+                    <a href="{% url 'item:detail' item.id %}">
+                        <div class="h-48 overflow-hidden">
+                            <img src="{{ item.image.url }}" class="w-full h-full object-cover">
+                        </div>
+
+                        <div class="p-6">
+                            <h2 class="text-xl font-semibold">{{ item.name }}</h2>
+                            <p class="text-gray-500">price: ${{ item.price }}</p>
+
+                            {% if item.average_rating %}
+                                <div class="flex mt-2">
+                                    {% for i in "12345" %}
+                                        <span class="text-{% if i|add:'0' <= item.average_rating %}yellow-500{% else %}gray-300{% endif %}">★</span>
+                                    {% endfor %}
+                                    <span class="ml-2 text-gray-500">({{ item.reviews.count }})</span>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </a>
+
+                    {% if request.user != item.created_by %}
+                        <div class="p-6 pt-0">
+                            <a href="{% url 'item:add_to_cart' item.id %}"
+                               class="block w-full text-center py-2 px-4 bg-teal-500 text-white rounded hover:bg-teal-700">add to cart</a>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

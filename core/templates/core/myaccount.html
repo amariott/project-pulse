@@ -1,0 +1,35 @@
+{% extends 'core/base.html' %}
+
+{% block title %}My Account{% endblock %}
+
+{% block content %}
+    <div class="w-1/2 my-6 mx-auto bg-gray-100 rounded-xl">
+        <h1 class="mb-6 text-3xl">my account</h1>
+
+        <form method="post" action="{% url 'core:myaccount' %}">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label class="inline-block mb-2">Full Name</label><br>
+                {{ form.full_name }}
+            </div>
+
+            <div class="mb-3">
+                <label class="inline-block mb-2">Age</label><br>
+                {{ form.age }}
+            </div>
+
+            <div class="mb-3">
+                <label class="inline-block mb-2">Card Number</label><br>
+                {{ form.card_number }}
+            </div>
+
+            <div class="mb-3">
+                <label class="inline-block mb-2">Address</label><br>
+                {{ form.address }}
+            </div>
+
+            <button class="py-4 px-8 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white">Save</button>
+        </form>
+    </div>
+{% endblock %}

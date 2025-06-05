@@ -1,0 +1,45 @@
+{% extends 'core/base.html' %}
+
+{% block title %}about{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto p-6">
+    <h1 class="text-3xl font-bold mb-8">about</h1>
+
+    <div class="space-y-6 text-lg">
+        <div class="bg-gray-100 p-6 rounded-xl">
+            <h2 class="text-xl font-semibold mb-4">our mission</h2>
+            <p>
+                at pulse, we believe that great performance starts with great gear.
+                founded in 2025, our mission is to provide athletes of all levels with
+                high-quality sports equipment and apparel that enhances their performance
+                and reflects their personal style
+            </p>
+        </div>
+
+        <div class="bg-gray-100 p-6 rounded-xl">
+            <h2 class="text-xl font-semibold mb-4">why choose us</h2>
+            <ul class="list-disc pl-6 space-y-2">
+                <li>curated selection of top sports brands</li>
+                <li>quality guarantee on all products</li>
+                <li>expert advice from former athletes</li>
+                <li>fast shipping and easy returns</li>
+                <li>community-focused initiatives</li>
+            </ul>
+        </div>
+
+        <div class="bg-gray-100 p-6 rounded-xl">
+            <h2 class="text-xl font-semibold mb-4">our team</h2>
+            <p>
+                pulse was founded by former collegiate athletes who understood the
+                importance of reliable sports gear. our team includes professional coaches,
+                fitness experts, and sports enthusiasts who test every product we sell
+            </p>
+        </div>
+    </div>
+
+    <div class="mt-8 text-center">
+        <a href="{% url 'item:browse' %}" class="inline-block px-6 py-3 bg-teal-500 text-white rounded-xl hover:bg-teal-700">shop our collection</a>
+    </div>
+</div>
+{% endblock %}
