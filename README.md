@@ -46,7 +46,7 @@ Pulse - это современный интернет-магазин спорт
 
 1. **Клонируйте репозиторий**
 ```
-   git clone https://github.com/ваше_имя_пользователя/pulse.git
+   git clone https://github.com/manana/pulse.git
    cd pulse
 ```
 
